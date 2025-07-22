@@ -35,13 +35,21 @@ class Quantity_Plus_Minus {
     }
     public function before_quantity_input_field(){
         ?>
-            <button type="button" class="quantity-btn" onclick="qpm_decrement(this)">-</button>
+            <button type="button" class="quantity-btn" onclick="qpm_decrement(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8z"/>
+                </svg>
+            </button>
         <?php
     }
     public function after_quantity_input_field()
     {
         ?>
-            <button type="button" class="quantity-btn" onclick="qpm_increment(this)">+</button>
+            <button type="button" class="quantity-btn" onclick="qpm_increment(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 1a.5.5 0 0 1 .5.5V7.5H14a.5.5 0 0 1 0 1H8.5V14a.5.5 0 0 1-1 0V8.5H2a.5.5 0 0 1 0-1h5.5V1.5A.5.5 0 0 1 8 1z"/>
+                </svg>
+            </button>
         <?php
     }
 
