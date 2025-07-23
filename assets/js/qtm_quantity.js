@@ -1,6 +1,7 @@
 function triggerChange(input) {
     const event = new Event('change', { bubbles: true });
     input.dispatchEvent(event);
+   
 }
 function qpm_increment(btn) {
     const parent = btn.closest('.quantity')

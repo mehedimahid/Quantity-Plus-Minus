@@ -12,3 +12,16 @@
     text-align: center;
     vertical-align: initial;
 }
+#order_review button.quantity-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    vertical-align: top;
+    padding: 2px;
+}
+#order_review input.qty  {
+    width: 70px !important;
+    height: 30px;
+}

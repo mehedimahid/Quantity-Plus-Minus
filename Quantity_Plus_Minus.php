@@ -13,14 +13,29 @@ class Quantity_Plus_Minus {
     public function __construct() {
         add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
         add_action('woocommerce_before_quantity_input_field',[$this, 'before_quantity_input_field']);
-       add_action('woocommerce_after_quantity_input_field', [$this, 'after_quantity_input_field']);
+        add_action('woocommerce_after_quantity_input_field', [$this, 'after_quantity_input_field']);
         // add_action('woocommerce_before_add_to_cart_button', [$this, 'add_to_cart_button']);
         add_action('woocommerce_after_shop_loop_item', [$this, 'after_shop_loop_item'], 9);
+        add_filter('woocommerce_checkout_cart_item_quantity', [$this, 'checkout_cart_item_quantity'], 10, 3);
 
     }
     public function enqueue_scripts() {
-        wp_enqueue_script('qtm-script', plugins_url('assets/js/qtm_quantity.js', __FILE__), array(),'1.0',true);
+        wp_enqueue_script('qtm-script', plugins_url('assets/js/qtm_quantity.js', __FILE__), array('jquery'),'1.0',true);
         wp_enqueue_style('qtm-style', plugins_url('assets/css/qtm_quantity_style.css', __FILE__));
+    }
+
+    function checkout_cart_item_quantity($html,$cart_item, $cart_item_key){
+        $html = ' <strong class="product-quantity">' . sprintf( '&times;&nbsp;%s', $cart_item['quantity'] ) . '</strong>';
+       $product = $cart_item['data'];
+       return woocommerce_quantity_input(
+            array(
+                'min_value' => apply_filters('woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product),
+                'max_value' => apply_filters('woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product),
+                'input_value' => isset($cart_item['quantity']) ? wc_stock_amount(wp_unslash($cart_item['quantity'])) : $product->get_min_purchase_quantity(),
+            ),
+            $cart_item['data'],
+            false,
+        );
     }
     public function after_shop_loop_item()
     {
